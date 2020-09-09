@@ -1,0 +1,27 @@
+/* Given a 32-bit signed integer, reverse digits of an integer. */
+
+public class Solution {
+    public int Reverse(int x) {
+        try{
+        bool signflag=false;
+        if(x<0){
+            x =x*(-1); //Make -ve value to +ve
+            signflag=true;
+        }
+        int rev=0;
+        var max = Int32.MaxValue / 10;
+        while(x>0){
+            if(rev > max || rev < -max) return 0; // check for overflow
+            rev=rev*10 + x%10;
+            x=x/10;
+        }
+        if(signflag==true)
+            rev=rev*(-1); //Make +ve value to -ve	
+        return Convert.ToInt32(rev);
+        }
+        catch(OverflowException Ex)
+        {
+            return 0;
+        }
+    }
+}
