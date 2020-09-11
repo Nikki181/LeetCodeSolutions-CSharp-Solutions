@@ -1,0 +1,36 @@
+/* Given a non-negative integer numRows, generate the first numRows of Pascal's triangle. 
+
+Input: 5
+Output:
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+
+*/
+
+public class Solution {
+    public IList<IList<int>> Generate(int numRows) {
+        List<IList<int>> rows=new List<IList<int>>();
+        int prevRowLength=0;
+        List<int> prevrow=new List<int>();
+        for(var i=0;i<numRows;i++)
+        {
+            List<int> innerRow=new List<int>();
+            for(int j=0;j<=prevRowLength;j++)
+            {
+                if(j==0 || j==prevRowLength)
+                    innerRow.Add(1);   
+                else
+                    innerRow.Add(prevrow[j-1] + prevrow[j]);
+            }
+            prevrow=innerRow;
+            prevRowLength++;
+            rows.Add(innerRow);
+        }
+        return rows;
+    }
+}
