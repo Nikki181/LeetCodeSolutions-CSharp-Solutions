@@ -1,0 +1,22 @@
+/* Given an integer rowIndex, return the rowIndexth row of the Pascal's triangle.
+
+Notice that the row index starts from 0.
+
+Input: rowIndex = 3
+Output: [1,3,3,1]
+
+*/
+
+public class Solution {
+    public IList<int> GetRow(int rowIndex) {
+        if (rowIndex == 0) return new List<int>() { 1 };
+        var prevRow = GetRow(rowIndex-1);
+        var curRow = new List<int>();
+        curRow.Add(1);
+        for (int j=1; j<rowIndex; j++) {
+            curRow.Add(prevRow[j-1]+prevRow[j]);
+        }
+        curRow.Add(1);
+        return curRow;
+    }
+}
