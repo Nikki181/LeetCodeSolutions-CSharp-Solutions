@@ -32,3 +32,22 @@ public class Solution {
         return max;
     }
 }
+
+//Second method:
+
+public class Solution {
+    public int MaxProfit(int[] prices) {
+        var maxprofit=0;
+        for(var i=0;i<prices.Length;i++)
+        {
+            for(var j=prices.Length-1;j>i;j--)
+            {
+                var profit=0;
+                profit=prices[i]-prices[j];
+                if(profit<maxprofit)
+                     maxprofit=profit;
+            }
+        }
+        return (maxprofit<0?maxprofit *(-1) : maxprofit) ;
+    }
+}
