@@ -1,0 +1,33 @@
+/* Given an array of size n, find the majority element. 
+[3,2,3] -> 3
+[2,2,1,1,1,2,2] -> 2
+*/
+
+public class Solution {
+    public int MajorityElement(int[] nums) {
+        int majorityno=0;
+        int occurance=0;
+        Array.Sort(nums);
+     
+        var checkno=nums[0];
+        var currento=1;
+        for(int i=1;i<nums.Length;i++){
+            if(nums[i]==checkno)
+                currento++;
+            else{
+                if(occurance<=currento){
+                    occurance=currento;
+                    majorityno=nums[i-1];
+                }
+                 checkno=nums[i];
+                 currento=1;
+            }
+        }
+       if(occurance<currento)
+       {
+           occurance=currento;
+           majorityno=checkno;
+       }
+        return majorityno;
+    }
+}
