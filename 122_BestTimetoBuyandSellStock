@@ -1,0 +1,83 @@
+/* Say you have an array prices for which the ith element is the price of a given stock on day i.
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
+Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
+
+[7,1,5,3,6,4] 7
+[1,2,3,4,5]   4
+*/
+
+public class Solution {
+    public int MaxProfit(int[] prices) {
+        var buy=prices[0];
+        var profit=0;
+        var gain=0;
+        var sell_maybe=0;
+		var buy_maybe=0;
+        var possesing = 1; // 0 = already sold; 1 = bought
+        // [1,5,3,6,8,2,4] = 11
+        // [1,5,3,2,1,6,7] = 10
+        // [5,3,2,6,2,1,3] = 6
+        var start=0;
+        for(var i=1;i<prices.Length-1;i++)
+        {
+            if(prices[i]<=buy)
+            {
+                buy=prices[i];
+                start=i;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+		  for(var j=start+1; j<prices.Length;j++)
+          {
+             if(possesing == 1)
+             {
+              if(gain==1)
+              {
+                  if(sell_maybe<prices[j])
+                  {
+                    gain=1;
+                    sell_maybe=prices[j];
+                  }
+                  else
+                  {
+                    gain=0;
+                    profit= profit+sell_maybe-buy;
+                    possesing = 0;
+                    buy_maybe=prices[j];
+                  }
+              }
+              else if(prices[j]>buy)
+              {
+                 gain=1;
+                 sell_maybe = prices[j];
+              }
+
+             }// posssessing done
+             else
+             {
+              if(prices[j]<buy_maybe)
+              {
+                buy_maybe=prices[j];
+              }
+              else
+              {
+                 possesing=1;
+                 buy=buy_maybe;
+                 sell_maybe=prices[j];
+                 gain=1;
+              }
+			 }// possesing done
+         }// for j loop done
+          
+		  if(possesing == 1 && gain==1)
+		  {
+		    profit = profit + sell_maybe - buy;
+		  }
+
+        return profit;
+    }
+}
