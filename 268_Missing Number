@@ -1,0 +1,30 @@
+/* Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+[3,0,1] - > 2
+[9,6,4,2,3,5,7,0,1] -> 2
+[0,1] -> 2
+[1] -> 
+
+public class Solution {
+    public int MissingNumber(int[] nums) {
+        Array.Sort(nums);
+        var ans=0;
+        if(nums.Length==1){
+            if(nums[0]%2==0)
+                ans=nums[nums.Length-1] +1;
+            else
+                ans=nums[nums.Length-1] -1;
+        }
+        else{
+            for(var i=0;i<nums.Length;i++){
+                if(nums[i]!=i)
+                {
+                    ans=i;
+                    break;
+                }
+            }
+        }
+         if(ans==0 && nums[0]==0 )
+                ans=nums[nums.Length-1]+1;
+        return ans;
+    }
+}
