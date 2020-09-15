@@ -1,0 +1,17 @@
+/* Given a non-empty array of integers, return the third maximum number in this array. If it does not exist, return the maximum number. The time complexity must be in O(n).
+
+[3, 2, 1] -> 1
+[1, 2] -> 1
+
+
+public class Solution {
+    public int ThirdMax(int[] nums) {
+        if(nums.Length==0) return 0;
+        nums=nums.Distinct().ToArray();
+        Array.Sort(nums);
+        Array.Reverse(nums);
+        if(nums.Length<3)
+            return nums[0];
+        return nums[2];
+    }
+}
