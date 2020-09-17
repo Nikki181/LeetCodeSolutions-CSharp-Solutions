@@ -1,0 +1,22 @@
+/*
+Implement strStr().
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Input: haystack = "hello", needle = "ll"
+Output: 2
+
+Input: haystack = "", needle = "ll"
+Output: -1
+
+*/
+
+public class Solution {
+    public int StrStr(string haystack, string needle) {
+        if((haystack=="" || haystack.Length<0 || haystack==null )&& needle=="")
+            return 0;
+      int index = haystack.IndexOf(needle, 0);  
+        if(index<0)
+            return -1;
+        return index;
+    }
+}
