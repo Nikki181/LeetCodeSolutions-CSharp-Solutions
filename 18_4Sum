@@ -1,0 +1,84 @@
+/*
+Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all 
+unique quadruplets in the array which gives the sum of target.
+
+nums = [1, 0, -1, 0, -2, 2], and target = 0.
+Output:
+[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
+*/
+
+public class Solution {
+    public IList<IList<int>> FourSum(int[] nums, int target) {
+        
+         List<IList<int>> result=new List<IList<int>>();
+        if(nums == null || nums.Length < 4) return result; 
+        
+        if(nums.Length == 4 && nums.ToList().Sum() == target) {
+            result.Add(nums.ToList());
+            return result; 
+        }
+        Array.Sort(nums);
+        IList<IList<int>> res=new List<IList<int>>();
+        for(int i=0;i<nums.Length -3;i++)
+        {
+            var newt=target - nums[i];
+            
+            if(i ==0 || nums[i] > nums[i - 1]) {
+            
+                int[] sub=new int[nums.Length-i-1];
+                Array.Copy(nums, i+1, sub, 0, nums.Length-i-1);
+                res=ThreeSum(sub,newt, i );
+
+                foreach (var list2  in res) 
+                { 
+                         result.Add(new List<int>() {nums[i], list2[0],list2[1],list2[2]});
+                }   
+            }
+            
+        }
+        return result;
+        
+    }
+    
+     public IList<IList<int>> ThreeSum(int[] nums,int newt,int newi) {
+        
+        List<IList<int>> result = new List<IList<int>>(); 
+        
+        for (int i = 0; i < nums.Length; i++) {
+            var target = newt -nums[i] ; 
+            
+            // to avoid duplicates
+            if(i ==0 || nums[i] > nums[i - 1]) {
+                int start = i + 1; 
+                int end = nums.Length - 1; 
+                
+                while(start < end) {
+                    if(nums[start] + nums[end] == target) {
+                        result.Add(new List<int>() {nums[i], nums[start], nums[end]}); 
+                    }
+                    if(nums[start] + nums[end] < target) {
+                        int currStart = start; 
+                        
+        // avoid duplicates => if nums[start] and nums[start + 1] are the same... they will be duplicate solutions
+                        while(nums[start] == nums[currStart] && start < end) {
+                            start++; 
+                        }
+                    } else {
+                        int currEnd = end;
+         // again, avoiding duplicates
+                        while(nums[end] == nums[currEnd] && start < end) {
+                            end--; 
+                        }
+                    }
+                }
+             }
+        }
+        
+        return result; 
+    }
+}
+
