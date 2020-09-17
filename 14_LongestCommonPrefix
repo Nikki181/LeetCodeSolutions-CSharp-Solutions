@@ -1,0 +1,44 @@
+/*
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+
+["flower","flow","flight"]  => "fl"
+["abc","abc"] =>  "abc"
+["a","ac"]  => "a"
+
+*/
+
+public class Solution {
+    public string LongestCommonPrefix(string[] strs) {
+    if(strs == null  || strs.Length < 1) 
+        return "";
+    int minLength=strs[0].Length;
+    string pre = "";
+    bool present=true;
+    var initial=strs[0];
+    if(initial=="")
+        return "";
+   
+		for(int i=0;i<minLength;i++)
+        {
+          for(int j=1;j<strs.Length;j++)
+          {
+              var c=strs[j];
+              if(strs[j].Length<minLength)
+                 minLength=strs[j].Length;
+              if(c.Length>i && initial[i]==c[i])
+                  present=true;
+              else{
+                  present=false;
+                  break;
+              }
+          }
+          if(present==false)
+              break;
+          else
+              pre+=initial[i];
+        }
+    return pre;
+}
+}
+
