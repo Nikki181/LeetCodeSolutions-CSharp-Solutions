@@ -1,0 +1,38 @@
+/* Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999. 
+
+"LVIII" => 58
+"MCMXCIV" => 1994
+*/
+
+public class Solution {
+    public int RomanToInt(string s) {
+        int result=0;
+        for(int i=0;i<s.Length;i++)
+        {
+            int number=charToInt(s[i]);
+            int next=0;
+            if(i+1<s.Length)
+                next=charToInt(s[i+1]);
+            if(number>0)
+            {
+                if(number >= next)
+                    result+=number;
+                else
+                    result=result-number;
+            }  
+        }
+        return result;
+    }
+    public int charToInt(char c) {
+        switch(c){
+            case'M': return 1000;
+            case'D': return 500;
+            case'C': return 100;
+            case'L': return 50;
+            case'X': return 10;
+            case'V': return 5;
+            case'I': return 1;
+            default: return -1;
+        }
+    }
+}
