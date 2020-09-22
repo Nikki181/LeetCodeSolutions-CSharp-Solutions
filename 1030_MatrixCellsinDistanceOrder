@@ -1,0 +1,31 @@
+/*
+We are given a matrix with R rows and C columns has cells with integer coordinates (r, c), where 0 <= r < R and 0 <= c < C.
+Additionally, we are given a cell in that matrix with coordinates (r0, c0).
+Return the coordinates of all cells in the matrix, sorted by their distance from (r0, c0) from smallest distance to largest distance.  Here, the distance between two cells (r1, c1) and (r2, c2) is the Manhattan distance, |r1 - r2| + |c1 - c2|.  (You may return the answer in any order that satisfies this condition.)
+
+Input: R = 1, C = 2, r0 = 0, c0 = 0
+Output: [[0,0],[0,1]]
+
+Input: R = 2, C = 2, r0 = 0, c0 = 1
+Output: [[0,1],[0,0],[1,1],[1,0]]
+ 
+*/
+
+public class Solution {
+	
+	public int[][] AllCellsDistOrder(int R, int C, int r0, int c0) {        
+    List<cell> cells=new List<cell>();
+    for(int i=0; i<R; i++){            
+        for(int j=0;j<C; j++){
+            var c=new cell(){x=i,y=j, dis=Math.Abs(i-r0)+ Math.Abs(j-c0)};
+            cells.Add(c);
+        }
+     }
+   return cells.OrderBy(t=>t.dis).Select(t=> new int[]{t.x,t.y}).ToArray();
+   }
+}
+public class cell{
+   public int x;
+   public int y;
+   public int dis;
+   }
