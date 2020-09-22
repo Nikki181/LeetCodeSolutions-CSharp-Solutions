@@ -1,0 +1,35 @@
+/*
+Given two arrays, write a function to compute their intersection.
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+
+Note:
+Each element in the result must be unique.
+The result can be in any order.
+*/
+
+public class Solution {
+    public int[] Intersection(int[] nums1, int[] nums2) {
+        if(nums1.Length==0)
+            return nums1;
+        else if(nums2.Length==0)
+            return nums2;
+       
+        Dictionary<int,int> dic=new Dictionary<int,int>();
+        var count=0;
+        for(int i=0;i<nums1.Length;i++)
+        {
+            var found=Array.IndexOf(nums2,nums1[i]);
+            if(found>=0 && !dic.ContainsKey(nums1[i]))
+            {
+               dic[nums1[i]]=1;
+            }
+        }
+        
+        return dic.Keys.ToArray();
+    }
+}
