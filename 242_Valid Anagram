@@ -1,0 +1,30 @@
+/*
+Given two strings s and t , write a function to determine if t is an anagram of s.
+*/
+
+ s = "anagram", t = "nagaram"
+Output: true
+
+s = "rat", t = "car"
+Output: false
+
+s = "aacc", t = "ccac"
+Output: false
+
+*/
+
+public class Solution {
+    public bool IsAnagram(string s, string t) {
+    if(s.Length==0 && t.Length==0)
+          return true;
+    if(s.Length==0 || t.Length==0 || s.Length!=t.Length)   
+         return false;
+    s=String.Concat(s.OrderBy(c => c));
+    t=String.Concat(t.OrderBy(c => c));
+    if(s==t)
+        return true;
+    else
+        return false;
+  
+       }
+}
