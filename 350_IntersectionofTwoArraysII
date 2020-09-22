@@ -1,0 +1,62 @@
+/*
+Given two arrays, write a function to compute their intersection.
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2,2]
+
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [4,9]
+
+Note:
+Each element in the result should appear as many times as it shows in both arrays.
+The result can be in any order.
+*/
+
+public class Solution {
+    public int[] Intersect(int[] nums1, int[] nums2) {
+        if(nums1.Length==0)
+            return nums1;
+        else if(nums2.Length==0)
+            return nums2;
+       
+        Dictionary<int,int> dic=new Dictionary<int,int>();
+        int minlen=0;
+        if(nums1.Length<nums2.Length)
+            minlen=nums1.Length;
+        else if (nums1.Length>=nums2.Length)
+             minlen=nums2.Length;
+        
+        var count=0;
+        for(int i=0;i<minlen;i++)
+        {
+            var found=-1;
+            //If nums1 length is lesser than nums2 - take element from nums1 and check in nums2  array
+             if(nums1.Length<nums2.Length){
+                 found=Array.IndexOf(nums2,nums1[i]);
+                 if(found>=0 && !dic.ContainsValue(nums1[i]))
+                 {
+                     var nums1count=nums1.Count(s => s ==nums1[i]);
+                     var nums2count=nums2.Count(s => s ==nums1[i]);
+                     var total=(nums1count==nums2count)?nums1count:Math.Min(nums1count,nums2count);
+                     for(int j=0;j<total;j++)
+                        dic[count++]=nums1[i];
+                 }
+             }
+            else
+            {
+              //If nums2 length is lesser than nums1 - take element from nums2 and check in nums1  array
+                found=Array.IndexOf(nums1,nums2[i]);
+                if(found>=0 && !dic.ContainsValue(nums2[i])){
+                //if one element is present more than once in both the array then it should display multiple times.[As per example 1 above]
+                     var nums1count=nums1.Count(s => s ==nums2[i]);
+                     var nums2count=nums2.Count(s => s ==nums2[i]);
+                     var total=(nums1count==nums2count)?nums1count:Math.Min(nums1count,nums2count);
+                     for(int j=0;j<total;j++)
+                         dic[count++]=nums2[i];
+                }
+            }
+        }
+        
+        return dic.Values.ToArray();
+    }
+}
