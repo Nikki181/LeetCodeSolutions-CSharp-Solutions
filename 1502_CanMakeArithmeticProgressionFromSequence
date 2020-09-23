@@ -1,0 +1,29 @@
+/*
+Given an array of numbers arr. A sequence of numbers is called an arithmetic progression if the difference between any two consecutive elements is the same.
+Return true if the array can be rearranged to form an arithmetic progression, otherwise, return false.
+
+arr = [3,5,1] =>  true
+arr = [1,2,4  => false
+*/
+public class Solution {
+    public bool CanMakeArithmeticProgression(int[] arr) {
+        Array.Sort(arr);
+        int diff=0;
+        if(arr.Length>1)
+        {
+            diff=arr[1]-arr[0];
+        }
+        else
+            return false;
+        for(int i=1;i<arr.Length;i++)
+        {
+            if(i+1<arr.Length)
+            {
+                if(diff!=(arr[i+1]-arr[i]))
+                   return false;
+            }
+        }
+        return true;
+        
+    }
+}
