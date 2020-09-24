@@ -1,0 +1,21 @@
+/*
+Given a list of non negative integers, arrange them such that they form the largest number.
+
+[10,2]  =>  "210"
+[3,30,34,5,9] => "9534330"
+
+*/
+
+public class Solution {
+  public string LargestNumber(int[] nums) {
+      //convert from int array to string list
+        var list = (nums.Select(item => item.ToString())).ToList(); 
+      //soring with comparing by joining two number. For example: 2,10 now compare with by joining those two numbers (210 & 102)
+		list.Sort((x, y) => (y + x).CompareTo(x + y));
+      //convert the list to single string 
+		var largestNumber = string.Join("", list); 
+      //if all the input are 0 then only return 0
+		return largestNumber[0].Equals('0') ? "0" : largestNumber;    
+  }
+}
+
