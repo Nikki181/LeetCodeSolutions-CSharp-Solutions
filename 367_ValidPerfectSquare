@@ -1,0 +1,40 @@
+/*
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Follow up: Do not use any built-in library function such as sqrt.
+
+808201  =>  True
+2147483647  => False
+
+*/
+
+public class Solution {
+    public bool IsPerfectSquare(int num) {
+      if(num<1)  
+          return false;
+        long low=1;
+        long high=num;
+        while(low<=high)
+        {
+            long mid=low+(high-low) / 2;
+            var temp=(mid*mid);
+            if(temp>num)
+                   high=mid-1;
+            else if(temp<num)
+                   low=mid+1;
+            else
+                    return true;
+        }
+        return false; 
+    }
+}
+
+/*
+  for(int i=2; no<=num;i++)
+      {
+          no=i*i;
+          if(no==num)
+              return true;
+      }
+      
+*/
