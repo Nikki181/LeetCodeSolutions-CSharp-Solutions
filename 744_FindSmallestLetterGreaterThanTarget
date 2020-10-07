@@ -1,0 +1,25 @@
+/*
+
+Given a list of sorted characters letters containing only lowercase letters, and given a target letter target, find the smallest element in the list that is larger than the given target.
+Letters also wrap around. For example, if the target is target = 'z' and letters = ['a', 'b'], the answer is 'a'.
+
+letters = ["c", "f", "j"] target = "a"
+Output: "c"
+
+letters = ["c", "f", "j"] target = "g"
+Output: "j"
+*/
+
+public class Solution {
+    public char NextGreatestLetter(char[] letters, char target) {
+        char smallest= letters[0];
+        foreach(var letter in letters)
+        {
+            
+            if(letter>target){
+                return letter;
+            }
+        }
+        return smallest;
+    }
+}
