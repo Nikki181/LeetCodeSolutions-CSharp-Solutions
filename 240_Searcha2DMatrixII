@@ -1,0 +1,33 @@
+/*
+Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+Integers in each row are sorted in ascending from left to right.
+Integers in each column are sorted in ascending from top to bottom.
+
+*/
+
+public class Solution {
+    public bool SearchMatrix(int[,] matrix, int target) {
+        
+        int rows=matrix.GetLength(0);
+        int columns=matrix.GetLength(1);
+    
+        if(rows>0 && columns>0)
+        {
+            var crow = 0;
+            var ccol = columns - 1;
+            while (crow < rows && ccol >= 0) 
+            {
+                int current = matrix[crow,ccol];
+                if (current < target) 
+                    crow++;
+                else if (current > target) 
+                    ccol--;
+                else
+                    return true;
+             }
+        }
+        
+        return false;
+    }
+}
