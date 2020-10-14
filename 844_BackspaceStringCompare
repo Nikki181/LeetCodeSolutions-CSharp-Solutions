@@ -1,0 +1,58 @@
+/*
+Given two strings S and T, return if they are equal when both are typed into empty text editors. # means a backspace character.
+Note that after backspacing an empty text, the text will continue empty.
+
+Input: S = "ab#c", T = "ad#c"
+Output: true
+
+Input: S = "ab##", T = "c#d#"
+Output: true
+*/
+
+public class Solution {
+    public bool BackspaceCompare(string S, string T) {
+        Stack<char> stack1=new Stack<char>();
+        Stack<char> stack2=new Stack<char>();
+        int maxlen=0;
+        if(S.Length>T.Length)
+            maxlen=S.Length;
+        else
+            maxlen=T.Length;
+        
+        for(int i=0;i<maxlen;i++)
+        {
+            if(i<S.Length)
+            {
+                if(S[i]=='#'){
+                    if(stack1.Count>0)
+                        stack1.Pop();
+                }
+                else
+                    stack1.Push(S[i]);
+            }
+            if(i<T.Length)
+            {
+                 if( T[i]=='#'){
+                      if(stack2.Count>0)
+                            stack2.Pop();
+                 }
+                else
+                    stack2.Push(T[i]);
+            }            
+        }
+        if(stack1.Count!=stack2.Count)
+            return false;
+        else{
+            while(stack1.Count>0)
+            {
+                char i1=stack1.Peek();
+                stack1.Pop();
+                char i2=stack2.Peek();
+                stack2.Pop();
+                if(i1!=i2)
+                    return false;
+            }
+            return true;
+        }
+    }
+}
