@@ -1,0 +1,27 @@
+/*
+Given a list of intervals, remove all intervals that are covered by another interval in the list.
+*/
+public class Solution {
+    public int RemoveCoveredIntervals(int[][] intervals) {
+        int len = intervals.Length;
+        int result = len;
+        bool[] processed = new bool[len];
+        for (int i = 0; i < len-1; i++) {
+            if (processed[i] == true)
+                continue;
+            for (int j = i+1; j < len; j++) {
+                if (processed[j] == true)
+                    continue;
+                if ((intervals[i][0] >= intervals[j][0]) && (intervals[i][1] <= intervals[j][1])) {
+                    result--;
+                    break;
+                }
+                else if ((intervals[i][0] <= intervals[j][0]) && (intervals[i][1] >= intervals[j][1])) {
+                    processed[j] = true;
+                    result--;
+                }
+            }
+        }
+        return result;
+    }
+}
