@@ -1,0 +1,46 @@
+/*
+Given an absolute path for a file (Unix-style), simplify it. Or in other words, convert it to the canonical path.
+In a UNIX-style file system, a period . refers to the current directory. Furthermore, a double period .. moves the directory up a level.
+Note that the returned canonical path must always begin with a slash /, and there must be only a single slash / between two directory names. The last directory name (if it exists) must not end with a trailing /. Also, the canonical path must be the shortest string representing the absolute path.
+
+ "/a/./b/../../c/"  =>  "/c"
+ "/a//b////c/d//././/.."  =>  "/a/b/c"
+ */
+ 
+ public class Solution {
+    public string SimplifyPath(string path) {
+        Stack<string> stack=new Stack<string>();
+       
+        //Validate input
+        if (string.IsNullOrEmpty(path))
+            return "/";
+        var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        foreach(var part in parts)
+        {
+            if (part == ".")
+                continue;
+            
+			//.. means go up, so pop the directory stack if there's something there and continue
+            if (part == "..")
+            {
+                if (stack.Count > 0)
+                    stack.Pop();
+                continue;
+            }
+            
+			//this must be a directory, so keep it
+            stack.Push(part);
+        }
+       
+       var lststring = new List<string>();
+        
+		//We need to pull out the stack contents...
+        while (stack.Count > 0)
+            lststring.Add(stack.Pop());
+        
+		//Then reverse them and add a / between each, as well as one in the front.
+        lststring.Reverse();
+        return "/" + string.Join("/", lststring);
+        
+    }
+}
