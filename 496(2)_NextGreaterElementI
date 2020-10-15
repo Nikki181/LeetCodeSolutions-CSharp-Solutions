@@ -1,0 +1,31 @@
+/*
+You are given two arrays (without duplicates) nums1 and nums2 where nums1’s elements are subset of nums2. Find all the next greater numbers for nums1's elements in the corresponding places of nums2.
+
+The Next Greater Number of a number x in nums1 is the first greater number to its right in nums2. If it does not exist, output -1 for this number.
+
+*/
+
+2nd version with stack
+
+public class Solution {
+    public int[] NextGreaterElement(int[] nums1, int[] nums2) {
+        int[] res = new int[nums1.Length];
+        Stack<int> stak = new Stack<int>();
+        Dictionary<int, int> dic = new Dictionary<int, int>();
+
+        for (int i = 0; i < nums2.Length; i++)
+        {
+            var num = nums2[i];
+            while(stak.Count>0&&stak.Peek()<num)
+            {
+                dic.Add(stak.Pop(),num);
+            }
+            stak.Push(num);
+        }
+        for (int i = 0; i < nums1.Length; i++)
+        {
+            res[i] = dic.ContainsKey(nums1[i]) ? dic[nums1[i]] : -1;
+        }
+        return res;
+    }
+}
