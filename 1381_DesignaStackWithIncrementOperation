@@ -1,0 +1,45 @@
+/* Design a stack which supports the following operations. */
+
+public class CustomStack {
+    private int[] maxSizeStack;
+    private int maxSize;
+    private int top;
+
+    public CustomStack(int maxSize) 
+    {
+        maxSizeStack = new int[maxSize];
+        this.maxSize = maxSize;
+        top = -1;
+    }
+    public void Push(int x) {
+        if(top==maxSize-1)
+            return;
+         top=top+1;
+         maxSizeStack[top]=(x);
+    }
+    
+    public int Pop() {
+        if(top!=-1){
+            int val=maxSizeStack[top];
+            top--;
+            return val;
+        }
+        else
+            return -1;
+    }
+    
+    public void Increment(int k, int val) {
+        for(int i = 0; i < k && i <= top; i++)
+        {
+            maxSizeStack[i] += val;
+        }
+    }
+}
+
+/**
+ * Your CustomStack object will be instantiated and called as such:
+ * CustomStack obj = new CustomStack(maxSize);
+ * obj.Push(x);
+ * int param_2 = obj.Pop();
+ * obj.Increment(k,val);
+ */
