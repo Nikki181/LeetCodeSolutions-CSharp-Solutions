@@ -1,0 +1,62 @@
+/* Given a string s, a k duplicate removal consists of choosing k adjacent and equal letters from s and removing them causing the left and the right side of the deleted substring to concatenate together.
+We repeatedly make k duplicate removals on s until we no longer can.
+Return the final string after all such duplicate removals have been made.
+It is guaranteed that the answer is unique.
+
+Input: s = "abcd", k = 2
+Output: "abcd"
+
+Input: s = "deeedbbcccbdaa", k = 3
+Output: "aa"
+
+*/
+
+public class Solution {
+    bool duplicates=true;
+    public string RemoveDuplicates(string s, int k) {
+    
+   
+    string str=s;
+       
+    while(duplicates){
+      str=Fn_duplicate(str,k);
+    }
+        return str;
+    }
+    
+    public string Fn_duplicate(string s,int k){
+        Stack<char> stack=new Stack<char>();
+         int count=0;
+        duplicates=false;
+        for(int i=0;i<s.Length;i++){
+        
+        if(stack.Count>0){
+            var top=stack.Peek();
+            if(top==s[i]){
+                count++;
+                stack.Push(s[i]);
+                if(count==k)
+                {
+                    for(int j=0;j<k;j++){
+                         stack.Pop();
+                    }
+                    duplicates=true;
+                }         
+            }
+            else{
+                stack.Push(s[i]);
+                count=1;
+            }
+        }
+        else{
+            stack.Push(s[i]);
+            count=1;
+        }
+    }
+        string str="";
+    foreach(var item in stack.Reverse()){
+        str+=item;
+    }
+        return str;
+    }
+}
