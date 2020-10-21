@@ -1,0 +1,24 @@
+/*
+Given an array A of non-negative integers, return an array consisting of all the even elements of A, followed by all the odd elements of A.
+You may return any answer array that satisfies this condition.
+
+Input: [3,1,2,4]
+Output: [2,4,3,1]
+*/
+
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParity = function(A) {
+    let curr =0
+    for(let i =0; i<A.length;i++){
+        if(A[i] % 2 == 0){
+            let temp = A[curr];
+            A[curr]= A[i]
+            A[i] = temp
+            curr++
+        }
+    }
+    return A;
+};
