@@ -1,0 +1,27 @@
+/*
+Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+
+Find the kth positive integer that is missing from this array.
+
+ */
+ 
+ public class Solution {
+    public int FindKthPositive(int[] arr, int k) {
+        int ans=0;
+        int i=0;
+        int array_increment=0;
+        while(true){
+            if(array_increment>=arr.Length){
+                ans++;
+                
+            }
+            else if(arr[array_increment]==i)
+                array_increment++;
+            else
+                ans++;
+            if(ans==k+1)
+                return i;
+            i++;
+        }
+    }
+}
