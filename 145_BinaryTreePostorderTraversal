@@ -1,0 +1,39 @@
+/*
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+Example 1:
+Input: root = [1,null,2,3]
+Output: [3,2,1]
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public IList<int> PostorderTraversal(TreeNode root) {
+        IList<int> values=new List<int>();
+        if(root==null)
+            return values;
+        Stack<TreeNode> stack=new Stack<TreeNode>();
+        stack.Push(root);
+        while(stack.Count>0){
+            TreeNode item=stack.Pop();
+            values.Add(item.val);
+            if(item.left!=null)
+                stack.Push(item.left);
+            if(item.right!=null)
+                stack.Push(item.right);            
+        }        
+     return values.Reverse().ToList();   
+    }
+}
