@@ -1,0 +1,33 @@
+/*
+Write a function that takes a string as input and reverse only the vowels of a string.
+
+Input: "hello"
+Output: "holle"
+
+Input: "leetcode"
+Output: "leotcede"
+*/
+public class Solution {
+    public string ReverseVowels(string input) {
+        char[] s = input.ToCharArray();
+        int i=0;
+        int j=s.Length-1;
+        while(i<j){
+            if("aeiou".Contains(s[i],StringComparison.Ordinal) || "AEIOU".Contains(s[i],StringComparison.Ordinal))
+            {
+                while(j>i && !("aeiou".Contains(s[j],StringComparison.Ordinal) || "AEIOU".Contains(s[j],StringComparison.Ordinal))){                    
+                    j--;                    
+                }
+                //Swap
+                var temp=s[i];
+                s[i]=s[j];
+                s[j]=temp;
+                j--;
+            }
+            i++;
+        }
+        return new string(s);
+    }
+}
+
+	
