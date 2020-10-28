@@ -1,0 +1,56 @@
+/*
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+Input: root = [1,null,2,3]
+Output: [1,2,3]
+
+Input:  root =  [3,1,2]
+Output: [3,1,2]
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public IList<int> PreorderTraversal(TreeNode root) {
+     IList<int> result=new List<int>();
+     if(root==null)
+         return result;
+    
+     Dictionary<TreeNode,bool> dict=new Dictionary<TreeNode,bool>();
+     Stack<TreeNode> stack=new Stack<TreeNode>();
+     stack.Push(root);
+     
+     while(stack.Count>0){
+         var top=stack.Peek();
+         if(!dict.ContainsKey(top)){
+             dict.Add(top,true);
+             result.Add(top.val); 
+         }
+         if(top.left!=null && !dict.ContainsKey(top.left))
+         {
+             stack.Push(top.left);
+             continue;
+         }
+         if(top.right!=null && !dict.ContainsKey(top.right))
+         {
+             stack.Push(top.right);
+             continue;
+         }
+         stack.Pop();
+         
+     }
+        return result;
+        
+    }
+}
