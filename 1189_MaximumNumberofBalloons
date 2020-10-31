@@ -1,0 +1,57 @@
+/*
+Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
+
+You can use each character in text at most once. Return the maximum number of instances that can be formed.
+
+*/
+
+public class Solution {
+    public int MaxNumberOfBalloons(string text) {
+        if(text=="" || text.Length<7)
+            return 0;
+        Dictionary<char,int> dict=new Dictionary<char,int>();
+        /*dict['b']=0;
+        dict['a']=0;
+        dict['l']=0;
+        dict['o']=0;
+        dict['n']=0;*/
+        for(var k=0;k<text.Length;k++){
+            if(text[k] =='b' || text[k] =='a'  || text[k] =='l' || text[k] =='o' || text[k] =='n'  )
+            {
+                if(dict.ContainsKey(text[k])){
+                    dict[text[k]]= dict[text[k]] +1;
+                }
+                else{
+                    dict[text[k]]=1;
+                }
+            }
+        }
+        string word="balloon";
+        int i=0;
+        int count=0;
+        while(dict.Count>0){
+            var covered= word[i];
+            if(dict.ContainsKey(covered)){
+                dict[covered]=dict[covered] -1;
+                if(dict[covered]==0)
+                    dict.Remove(covered);
+            }
+            else{
+                return count;
+            }
+            
+            if(i==word.Length-1){
+                count++;
+                i=0;
+            }
+            else
+                i++;
+        }
+        //Another Solution
+        /*var min1= Math.Min(dict['b'],dict['a']);
+        var min2=Math.Min(min1,dict['n']);
+        int min3=Math.Min(dict['l'],dict['o']) / 2;
+        var count=Math.Min(min2,min3);*/
+        return count;
+    }
+}
