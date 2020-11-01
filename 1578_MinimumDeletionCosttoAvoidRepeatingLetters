@@ -1,0 +1,26 @@
+/*
+Given a string s and an array of integers cost where cost[i] is the cost of deleting the ith character in s.
+Return the minimum cost of deletions such that there are no two identical letters next to each other.
+Notice that you will delete the chosen characters at the same time, in other words, after deleting a character, the costs of deleting other characters will not change.
+
+*/
+public class Solution {
+    public int MinCost(string s, int[] cost) {
+        
+        int mincost=0, maxcost=cost[0];
+        for(int i=0;i<s.Length-1;i++){
+            if(s[i] == s[i+1]){                
+                    mincost += Math.Min(maxcost,cost[i+1]);  
+                    maxcost =  Math.Max(maxcost,cost[i+1]);
+            }
+            else
+                maxcost = cost[i+1];           
+        }
+        
+        return mincost;  
+        
+        
+    }
+}
+
+ 
