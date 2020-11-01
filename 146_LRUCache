@@ -1,0 +1,54 @@
+/*
+Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+*/
+public class LRUCache {
+
+    Dictionary<int,int> dict;
+    int maxcap=0;
+    List<int> lst;
+    public LRUCache(int capacity) {
+        maxcap=capacity;
+        dict =new Dictionary<int,int>();
+        lst=new List<int>();
+    }
+    
+    public int Get(int key) {
+        if(dict.ContainsKey(key)){
+            lst.Remove(key);
+            lst.Add(key);
+            return dict[key];
+        }
+        else
+            return -1;
+    }
+    
+    public void Put(int key, int value) {
+        if(dict.ContainsKey(key)){
+           lst.Remove(key);
+            dict.Remove(key);
+        }
+        if(dict.Count<maxcap ){
+            dict.Add(key,value);
+            lst.Remove(key);
+            lst.Add(key);  
+            return;
+        }
+        
+        dict.Remove(lst[0]);        
+        lst.RemoveAt(0);
+        dict.Add(key,value);
+        lst.Add(key);
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.Get(key);
+ * obj.Put(key,value);
+ */
