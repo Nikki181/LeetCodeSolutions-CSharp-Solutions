@@ -1,0 +1,50 @@
+/*
+
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+Example 2:
+
+Input: strs = [""]
+Output: [[""]]
+Example 3:
+
+Input: strs = ["a"]
+Output: [["a"]]
+
+*/
+
+public class Solution {
+    public IList<IList<string>> GroupAnagrams(string[] strs) {
+        IList<IList<string>> ans=new List<IList<string>>();
+        if(strs.Length<1)
+            return ans;
+        Dictionary<string,List<string>> dict=new Dictionary<string,List<string>>();
+                
+        for(int i=0;i<strs.Length;i++){
+            List<string> sub=new List<string>();            
+            var sortedi=String.Concat(strs[i].OrderBy(c => c));
+            if(dict.ContainsKey(sortedi)){
+                List<string>  existing = new List<string>();
+                if (!dict.TryGetValue(sortedi, out existing)) {                   
+                    dict[sortedi] = existing;
+                }
+                existing.Add(strs[i]);
+            }  
+            else
+            {
+                sub.Add(strs[i]);
+                dict.Add(sortedi,sub);
+            }
+            
+        }
+         foreach(KeyValuePair<string,List<string>> pair in dict){
+            ans.Add(pair.Value);
+        }
+        return ans;
+    }
+}
