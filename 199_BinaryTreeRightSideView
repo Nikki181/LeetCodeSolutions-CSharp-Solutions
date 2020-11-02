@@ -1,0 +1,55 @@
+/*
+
+Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+Example:
+
+Input: [1,2]
+Output: [1, 2]
+
+Input: [1,2,3,null,5,null,4]
+Output: [1, 3, 4]
+Explanation:
+
+   1            <---
+ /   \
+2     3         <---
+ \     \
+  5     4       <---
+  
+  */
+  
+  public class Solution
+{
+    public IList<int> RightSideView(TreeNode root)
+    {
+        if (root == null)
+        {
+            return new List<int>();
+        }
+
+        Queue<TreeNode> queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
+        IList<int> res = new List<int>();
+
+        while (queue.Count != 0)
+        {
+            int count = queue.Count;
+            TreeNode node = null;
+            for (int i = 0; i < count; i++)
+            {
+                node = queue.Dequeue();
+                if (node.left != null)
+                  queue.Enqueue(node.left);
+                
+                if (node.right != null)
+                  queue.Enqueue(node.right);  
+                  //if you perform BFS then write here
+                  //res.Add(node.val);
+            }
+            res.Add(node.val);
+        }
+
+        return res;
+    }
+}
