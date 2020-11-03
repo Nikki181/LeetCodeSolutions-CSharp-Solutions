@@ -1,0 +1,76 @@
+/*Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+
+Example 1:
+
+Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+Input: digits = "289"
+Output: ["atw","atx","aty","atz","auw","aux","auy","auz","avw","avx","avy","avz","btw","btx","bty","btz","buw","bux","buy","buz","bvw","bvx","bvy","bvz","ctw","ctx","cty","ctz","cuw","cux","cuy","cuz","cvw","cvx","cvy","cvz"]
+
+*/
+
+public class Solution {
+    public IList<string> LetterCombinations(string digits) {        
+         IList<string> processstring=new List<string>();
+        
+        char[] carray=digits.ToCharArray();
+        
+        for(int i=0;i<carray.Length;i++){
+            var element=carray[i];
+            switch(element){
+                case '2':
+                    processstring.Add("abc");
+                    break;
+                case '3':
+                    processstring.Add("def");
+                    break;
+                case '4':
+                    processstring.Add("ghi");
+                    break;
+                case '5' :
+                    processstring.Add("jkl");
+                    break;
+                case '6':
+                    processstring.Add("mno");
+                    break;
+                case '7':
+                    processstring.Add("pqrs");
+                    break;
+                case '8':
+                    processstring.Add("tuv");
+                    break;
+                case '9':
+                    processstring.Add("wxyz");
+                    break;
+            }            
+        }
+        List<string> lststr=new List<string>();
+        for(int i=0;i<carray.Length;i++){
+            lststr= temp(lststr,processstring[i]);
+        }        
+        return lststr;
+        
+    }
+    
+    public  List<string> temp(List<string> lst, string s){
+        List<string> ans=new List<string>();
+        if(lst.Count==0)
+        {
+            char[] c=s.ToCharArray();
+            for(int i=0;i<c.Length;i++){
+                ans.Add(c[i].ToString());
+            }
+        }
+        else{
+            for(int i=0;i<lst.Count;i++){
+                for(int j=0;j<s.Length;j++){
+                    ans.Add(lst[i] + s[j]);
+                }
+            }
+        }
+        return ans;
+        
+    }
+}
