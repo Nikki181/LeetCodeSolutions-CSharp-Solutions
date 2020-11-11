@@ -1,0 +1,37 @@
+public class MyCalendar {
+
+    List<int[]> bookedslot=new List<int[]>();
+    public MyCalendar() {
+    }
+    
+    public bool Book(int start, int end) {
+        if(bookedslot.Count==0)
+        {
+            bookedslot.Add(new []{start,end-1});
+        }
+        else{
+            for(int i=0;i<bookedslot.Count;i++){
+                var min=bookedslot[i][0];
+                var max=bookedslot[i][1];
+                
+                if(start>=min && start<max)
+                   return false;
+                if(end-1>=min && end-1<=max)
+                    return false;
+                if(min>=start && min<=end-1)
+                    return false;
+                if(max>=start && max<=end-1)
+                    return false;
+            }
+             bookedslot.Add(new []{start,end-1});
+            return true;
+        }
+        return true;
+    }
+}
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar obj = new MyCalendar();
+ * bool param_1 = obj.Book(start,end);
+ */
