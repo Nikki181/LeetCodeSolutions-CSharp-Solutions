@@ -1,0 +1,48 @@
+/*
+Given two lists of closed intervals, each list of intervals is pairwise disjoint and in sorted order.
+Return the intersection of these two interval lists.
+
+Input: A = [[0,2],[5,10],[13,23],[24,25]], B = [[1,5],[8,12],[15,24],[25,26]]
+Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+
+*/
+public class Solution {
+    public int[][] IntervalIntersection(int[][] A, int[][] B) {
+        
+        List<int[]> lst=new List<int[]>();
+        int Alen=A.GetLength(0);
+        int Blen=B.GetLength(0);
+        
+        for(int i=0;i<Alen;i++)
+        {
+            var astart=A[i][0];
+            var aend=A[i][1];
+            for(int j=0;j<Blen;j++){
+                var bstart=B[j][0];
+                var bend=B[j][1];
+                int min=-999;
+                int max=-999;
+                if(bstart>aend)
+                    break;
+                else if(astart>bend)
+                    continue;
+                min=Math.Max(astart,bstart);
+                max=Math.Min(aend,bend);
+                if(min==-999 && max==-999)
+                    break;
+                else
+                    lst.Add(new []{min,max});
+            }
+        }
+        
+        return lst.ToArray();
+    }
+}
+// A = [[0,2],[5,10],[13,23],[24,25]], B = [[1,5],[8,12],[15,24],[25,26]]
+//My approach:
+//take one pair -[0,2] from A and take 2nd pair-[1,2] from B 
+//take both start value and find maximum from them 
+//so in this case, take 0 and 1 and find max which is 1
+//similarly, take end value from both A and B
+//so in this case,take 2 and 2 and find min which is 2
+//so our new pair is [1,2]
