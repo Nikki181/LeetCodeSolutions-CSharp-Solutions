@@ -1,0 +1,57 @@
+/* https://app.glider.ai/practice/problem/basic-programming/larger-letters/problem 
+
+Input
+The first line of input contains an integer n, the length of the given string.
+The second line of input contains a string.
+
+Output
+Print the count of number of larger alphabets for every character of the string on a single line. Separate elements by white spaces.
+
+
+Input =>
+3
+abc
+
+Output
+2 1 0
+
+
+*/
+
+using System; 
+public class Test 
+{ 
+   public static void Main() 
+   { 
+       //Console.WriteLine("Hello World!");
+       
+       string count = Console.ReadLine();
+       
+       string word = Console.ReadLine();
+       
+      
+       largeletter(word,Convert.ToInt32(count));
+       //largeletter("abccde",5);
+       
+   } 
+   public static  void largeletter(string word,int count){
+        
+       var prevcount=0;
+       char prevchar='\0';
+       for(int i=0;i<word.Length;i++){
+               int total=0;
+               if(prevchar!='\0' && prevchar==word[i]){
+                      Console.WriteLine(prevcount); 
+               }
+               else{
+                   for(int j=0;j<word.Length;j++){
+                       if(word[i]<word[j])
+                            total++;
+                   }
+                     prevchar=word[i];
+                     prevcount=total;
+                     Console.WriteLine(total);
+               }
+       }
+   }
+}
