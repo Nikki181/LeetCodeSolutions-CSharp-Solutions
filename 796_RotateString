@@ -1,0 +1,16 @@
+public class Solution {
+    public bool RotateString(string A, string B) {
+        if(A=="" && B=="")
+            return true;
+        if(A=="" || B=="")
+            return false;
+        string copy=String.Copy(A);
+        for(int i=0;i+1<A.Length;i++){  
+            string a=copy.Substring(1);
+            copy=a+A[i].ToString();
+            if(copy==B)
+                return true;
+        }
+        return false;
+    }
+}
