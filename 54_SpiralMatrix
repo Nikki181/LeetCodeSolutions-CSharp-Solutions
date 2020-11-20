@@ -1,0 +1,102 @@
+/*
+Given an m x n matrix, return all elements of the matrix in spiral order.
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+
+*/
+
+public class Solution {
+    public IList<int> SpiralOrder(int[][] matrix) {
+        IList<int> result=new List<int>();
+        int rows=matrix.Length;
+        int columns=matrix[0].Length;
+        if(rows==0 && columns==0)
+            return result;
+        bool[,] visited=new bool[rows,columns];
+        for(int k=0;k<rows;k++){
+            for(int l=0;l<columns;l++){
+                visited[k,l]=false;
+            }
+        }
+        string direction="right";   
+            int i=0;
+            int j=0;
+            result.Add(matrix[i][j]);
+            visited[i,j]=true;
+        var total=rows * columns;
+        while(result.Count<=total)
+            {
+                if(direction=="right")
+                {
+                    while(j+1<columns ){
+                        j++;
+                        if(visited[i,j]==false){
+                            result.Add(matrix[i][j]);
+                            visited[i,j]=true;
+                        }
+                        else{
+                            j--;
+                            break;
+                        }
+                    }
+                    if(result.Count==total)
+                        return result;
+                    direction="down";
+                }
+                if(direction=="down")
+                {
+                    while(i+1<rows){
+                        i++;
+                        if(visited[i,j]==false){
+                            result.Add(matrix[i][j]);
+                            visited[i,j]=true;
+                        }
+                        else{
+                            i--;
+                            break;
+                        }
+                    }
+                     if(result.Count==total)
+                        return result;
+                    direction="left";
+                }
+                if(direction=="left")
+                {
+                    while(j>0){
+                        j--;
+                        if(visited[i,j]==false){
+                            result.Add(matrix[i][j]);
+                            visited[i,j]=true;
+                        }
+                        else{
+                            j++;
+                            break;
+                        }
+                    }
+                     if(result.Count==total)
+                        return result;
+                    direction="up";
+                }
+                if(direction=="up")
+                {
+                    while(i>0){
+                        i--;
+                        if(visited[i,j]==false){
+                            result.Add(matrix[i][j]);
+                            visited[i,j]=true;
+                        }
+                        else{
+                            i++;
+                            break;
+                        }
+                    }
+                     if(result.Count==total)
+                        return result;
+                     direction="right";
+                }
+            }
+        return result;
+        
+    }
+}
