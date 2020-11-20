@@ -1,0 +1,104 @@
+/*
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+*/
+public class Solution
+{
+    public int[][] GenerateMatrix(int n)
+    {
+        IList<int[]> result=new List<int[]>();
+        int rows=n;
+        int columns=n;
+         var total=n * n;
+        
+        int[,] ans=new int[n,n];
+        bool[,] visited=new bool[rows,columns];
+        for(int k=0;k<rows;k++){
+            for(int l=0;l<columns;l++){
+                visited[k,l]=false;
+            }
+        }
+        int counter=1;
+        string direction="right";   
+        int i=0;
+        int j=-1;
+       
+        while(counter-1<total)
+            {
+                if(direction=="right")
+                {
+                    while(j+1<columns){
+                        j++;
+                        if(visited[i,j]==false){
+                            ans[i,j]=counter;
+                            counter++;
+                            visited[i,j]=true;
+                        }
+                        else{
+                            j--;
+                            break;
+                        }
+                    }
+                    if(counter-1==total)
+                        continue;                   
+                    direction="down";
+                }
+                if(direction=="down")
+                {
+                    while(i+1<rows){
+                        i++;
+                        if(visited[i,j]==false){
+                             ans[i,j]=counter;
+                            counter++;
+                            visited[i,j]=true;
+                        }
+                        else{
+                            i--;
+                            break;
+                        }
+                    }
+                     if(counter-1==total)
+                        continue;                    
+                    direction="left";
+                }
+                if(direction=="left")
+                {
+                    while(j>0){
+                        j--;
+                        if(visited[i,j]==false){
+                            ans[i,j]=counter;
+                            counter++;
+                            visited[i,j]=true;
+                        }
+                        else{
+                            j++;
+                            break;
+                        }
+                    }
+                     if(counter-1==total)
+                        continue;                    
+                    direction="up";
+                }
+                if(direction=="up")
+                {
+                    while(i>0){
+                        i--;
+                        if(visited[i,j]==false){
+                            ans[i,j]=counter;
+                            counter++;
+                            visited[i,j]=true;
+                        }
+                        else{
+                            i++;
+                            break;
+                        }
+                    }
+                     if(counter-1==total)
+                        continue;                    
+                     direction="right";
+                }
+                
+    }
+}
+
+
+ 
