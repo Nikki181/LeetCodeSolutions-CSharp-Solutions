@@ -21,12 +21,10 @@ public class Solution {
         Dictionary<char,int> dict=new Dictionary<char,int>();
         //make a dictioanry of all the letter containing in s with the count as value
         for(int i=0;i<t.Length;i++){
-            if(s.Contains(t[i])){
                 if(dict.ContainsKey(t[i]))
                     dict[t[i]]=dict[t[i]]+1;
                 else
                     dict[t[i]]=1;
-            }
         }
         int count=0;
         for(int i=0;i<s.Length;i++){
