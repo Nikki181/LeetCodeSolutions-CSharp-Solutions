@@ -1,0 +1,67 @@
+/*
+
+Given a string s of '(' , ')' and lowercase English characters. 
+Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
+
+*/
+
+public class Solution {
+    public string MinRemoveToMakeValid(string s) {
+        Stack<string> stack=new Stack<string>();
+        if(s=="")
+            return s;
+        string ans="";
+        int i=0;
+        int key=1;
+        Dictionary<int,string> dict=new Dictionary<int,string>();
+        while(i<s.Length){
+            if(stack.Count>0){
+                if(char.IsLetter(s[i]))
+                    stack.Push(s[i].ToString());
+                else if(s[i]=='(')
+                    stack.Push(s[i].ToString());
+                else if(s[i]==')'){
+                    var ins=")";
+                    while(true){
+                        var item=stack.Pop();                        
+                        int n;
+                        bool isNumeric = int.TryParse(item, out n);
+                        if(isNumeric)
+                            ins=dict[n] + ins;
+                        else
+                            ins=item + ins;
+                        if(item=="(")
+                            break;
+                    }  
+                    
+                    dict.Add(key,ins);
+                    if(stack.Count>0){
+                        stack.Push(key.ToString());                        
+                    }
+                    else
+                        ans+=ins;
+                    key++;
+                }  
+            }
+            else if(char.IsLetter(s[i]))
+                ans+=s[i].ToString();
+            else if(s[i]=='('){
+                stack.Push("(");
+            }           
+            i++;
+        }
+        var stackans="";
+        while(stack.Count>0){
+            var item=stack.Pop();
+            if(item!="(" && item!=")"){
+                int n;
+                bool isNumeric = int.TryParse(item, out n);
+                if(isNumeric)
+                    stackans=dict[n] + stackans;
+                else
+                    stackans=item + stackans;
+            }           
+        }
+        return ans + stackans;
+    }
+}
