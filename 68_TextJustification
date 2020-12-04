@@ -1,0 +1,75 @@
+/*
+Input: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+Output:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+
+*/
+public class Solution {
+    public IList<string> FullJustify(string[] words, int maxWidth) {
+    
+        IList<string> list=new List<string>();
+       
+        string process="";
+        for(int i=0;i<words.Length;i++){
+            var word=words[i];
+            if(process=="" && word.Length==maxWidth){
+                     process=word;
+            }
+            else if(word.Length + process.Length +1<=maxWidth) //+1 for considering space before the word
+            {
+                if(process==""){
+                    process=word;
+                }
+                else
+                    process=process + " " + word;
+            }
+            
+            else
+            {    
+                if(process.Length==maxWidth)
+                {
+                    list.Add(process);
+                    process="";
+                    i=i-1;
+                    continue;
+                }
+                string[] s=process.Split(' ');
+              
+                var currlength=process.Length - (s.Count()-1);
+                var temp="";
+                int j=0;
+                while(currlength<maxWidth){
+                        if(s.Length==1 || j<s.Length-1){
+                            s[j]=s[j]+ " ";
+                            if(j+1<s.Length)
+                                j++;
+                            else
+                                j=0;
+                        }
+                        else{
+                             j=0;                              
+                        }                   
+                    temp=string.Join(" ", s);
+                    currlength=temp.Length;
+                    
+                }
+                i=i-1;
+                list.Add(temp);  
+                process="";
+            }
+        }
+        if(process!=""){
+             var currlength=process.Length;
+             while(currlength<maxWidth){
+                      process=process+" "; 
+                    currlength=process.Length;
+                }
+             list.Add(process);
+        }
+        return list;
+    }
+}
