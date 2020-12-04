@@ -1,0 +1,55 @@
+/*
+Given a non-empty 2D array grid of 0's and 1's, an island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.
+Find the maximum area of an island in the given 2D array. (If there is no island, the maximum area is 0.)
+Example 1:
+[[0,0,1,0,0,0,0,1,0,0,0,0,0],
+ [0,0,0,0,0,0,0,1,1,1,0,0,0],
+ [0,1,1,0,1,0,0,0,0,0,0,0,0],
+ [0,1,0,0,1,1,0,0,1,0,1,0,0],
+ [0,1,0,0,1,1,0,0,1,1,1,0,0],
+ [0,0,0,0,0,0,0,0,0,0,1,0,0],
+ [0,0,0,0,0,0,0,1,1,1,0,0,0],
+ [0,0,0,0,0,0,0,1,1,0,0,0,0]]
+ 
+ output->6
+ */
+ 
+ public class Solution {
+    public int MaxAreaOfIsland(int[][] grid) {  
+            
+        if(grid==null ||grid.Length==0)
+            return 0;
+        //Define directions
+        (int x,int y)[] directions=new (int,int)[] {(0,1),(1,0),(0,-1),(-1,0)};
+	
+        bool[,] visited=new bool[grid.Length,grid[0].Length];
+        int maxcount=0;
+        for(int i=0;i<grid.Length;i++){
+            for(int j=0;j<grid[i].Length;j++)
+            {
+                if(!visited[i,j] && grid[i][j] ==1)
+                {
+                    visited[i,j]=true;
+                    int count=FindIslandArea(i,j,grid,visited,directions);
+                    maxcount=Math.Max(maxcount,count);
+                }
+            }
+        }       
+        return maxcount;
+    }
+    public int FindIslandArea(int i,int j,int[][] grid, bool[,] visited, (int x,int y)[] directions)
+    {
+        int count=1;
+        foreach(var d in directions)
+        {
+            int x=i+d.x;
+            int y=j+d.y;
+            if(x>=0 && y>=0 && x<grid.Length && y<grid[0].Length && !visited[x,y] && grid[x][y]==1)
+            {
+                visited[x,y]=true;
+                count+=FindIslandArea(x,y,grid,visited,directions);
+            }
+        }
+        return count;
+    }
+}
