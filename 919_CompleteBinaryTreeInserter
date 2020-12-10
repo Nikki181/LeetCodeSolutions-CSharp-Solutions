@@ -1,0 +1,93 @@
+/*
+
+A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.
+
+Write a data structure CBTInserter that is initialized with a complete binary tree and supports the following operations:
+
+CBTInserter(TreeNode root) initializes the data structure on a given tree with head node root;
+CBTInserter.insert(int v) will insert a TreeNode into the tree with value node.val = v so that the tree remains complete, and returns the value of the parent of the inserted TreeNode;
+CBTInserter.get_root() will return the head node of the tree.
+ 
+
+Example 1:
+
+["CBTInserter","insert","get_root"]
+[[[1]],[2],[]]
+Output: [null,1,[1,2]]
+
+["CBTInserter","insert","insert","get_root"]
+[[[1,2,3,4,5,6]],[7],[8],[]]
+[null,3,4,[1,2,3,4,5,6,7,8]]
+
+["CBTInserter","insert","insert","get_root"]
+[[[1]],[2],[3],[]]
+Output: [null,1,1,[1,2,3]]
+
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class CBTInserter {
+    Queue<TreeNode> queue;
+    public TreeNode _root;
+    public CBTInserter(TreeNode root) {
+         queue=new Queue<TreeNode>();
+        _root=root;
+        queue.Enqueue(root);
+        
+         while(queue.Count>0){
+            var item=queue.Peek();
+            if(item.left!=null)
+                queue.Enqueue(item.left);
+            
+            if(item.right!=null)
+                queue.Enqueue(item.right);
+            if(item.left!=null && item.right!=null){
+                //je node na left and right bnne hoy ene queue mathi remove kri devanu
+                //etle queue no top evo hovo joie jena under ma new node add kri shakie
+                queue.Dequeue();
+                continue;
+            }
+            break;
+        }
+    }
+    
+    public int Insert(int v) {
+        TreeNode tnew=new TreeNode(v);
+        
+        var item=queue.Peek();
+        if(item.left==null)
+        {
+            item.left=tnew;
+        }
+        else
+        {
+            item.right=tnew;
+            queue.Dequeue();
+        }
+        queue.Enqueue(tnew);
+        return item.val;
+        
+    }
+    
+    public TreeNode Get_root() {
+        return _root;
+    }
+}
+
+/**
+ * Your CBTInserter object will be instantiated and called as such:
+ * CBTInserter obj = new CBTInserter(root);
+ * int param_1 = obj.Insert(v);
+ * TreeNode param_2 = obj.Get_root();
+ */
