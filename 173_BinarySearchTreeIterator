@@ -1,0 +1,98 @@
+/*
+
+Input
+["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+[[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+Output
+[null, 3, 7, true, 9, true, 15, true, 20, false]
+
+Explanation
+BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
+bSTIterator.next();    // return 3
+bSTIterator.next();    // return 7
+bSTIterator.hasNext(); // return True
+bSTIterator.next();    // return 9
+bSTIterator.hasNext(); // return True
+bSTIterator.next();    // return 15
+bSTIterator.hasNext(); // return True
+bSTIterator.next();    // return 20
+bSTIterator.hasNext(); // return False
+ 
+
+Constraints:
+The number of nodes in the tree is in the range [1, 105].
+0 <= Node.val <= 106
+At most 105 calls will be made to hasNext, and next.
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class BSTIterator {
+
+     List<int> inorder=new List<int>();
+    Stack<TreeNode> stack;
+    Dictionary<TreeNode,bool> dict;
+    public BSTIterator(TreeNode root) {
+        //inorder traversal -Iterative solution
+        /*stack=new Stack<TreeNode>();
+        dict=new Dictionary<TreeNode,bool>();
+       
+        stack.Push(root);
+        while(stack.Count>0){
+            var item=stack.Peek();
+            if(item.left!=null  && !dict.ContainsKey(item.left)){
+                stack.Push(item.left);
+                continue;
+            }
+            inorder.Add(item.val);
+            var val=stack.Pop();
+            dict.Add(val,true);
+            if(item.right!=null){
+               
+                stack.Push(item.right);
+                continue;
+            }
+        }*/
+        if(root==null)
+            return;
+        InOrder(root);
+    }
+     private void InOrder(TreeNode root)
+    {
+         //Inorder traversal - recursive solution
+        if(root == null) return;
+        InOrder(root.left);
+        inorder.Add(root.val);
+        InOrder(root.right);
+    }
+    public int Next() {
+        var listitem=inorder[0];
+        inorder.Remove(inorder[0]);
+        return listitem;
+    }
+    
+    public bool HasNext() {
+        if(inorder.Count>0)
+            return true;
+        else
+            return false;
+    }
+}
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator obj = new BSTIterator(root);
+ * int param_1 = obj.Next();
+ * bool param_2 = obj.HasNext();
+ */
