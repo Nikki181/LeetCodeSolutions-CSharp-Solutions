@@ -1,0 +1,47 @@
+/*
+Given two non-negative integers num1 and num2 represented as string, return the sum of num1 and num2.
+
+Note:
+The length of both num1 and num2 is < 5100.
+Both num1 and num2 contains only digits 0-9.
+Both num1 and num2 does not contain any leading zero.
+You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+public class Solution {
+    public string AddStrings(string num1, string num2) {
+        string result="";
+        bool carry=false;
+        int sum=0;
+      
+        for (int first=num1.Length - 1, second=num2.Length - 1; 
+             first >= 0 || second >= 0; 
+             first--, second--){
+             sum= (first>=0?num1[first]-'0':0 )+
+                    (second>=0?num2[second]-'0':0 )+ 
+                    (carry?1:0);
+            if(sum>9){
+                carry=true;
+                sum=sum-10;
+            }
+            else
+                carry=false;
+            
+            result+=sum;
+        }
+        if(num1.Length==1 && num2.Length==1){
+            if(carry)
+                return "1"+result;
+            return result;
+        }
+        if(carry)
+        {
+            result= result+"1";
+        }
+       
+        char[] charArray = result.ToCharArray();
+        Array.Reverse( charArray );
+        return new string( charArray );
+        
+       
+    }
+}
