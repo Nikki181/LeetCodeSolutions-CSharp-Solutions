@@ -1,0 +1,43 @@
+/*
+Given an input string s, reverse the order of the words.
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+Return a string of the words in reverse order concatenated by a single space.
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+
+Example 2:
+Input: s = "  Bob    Loves  Alice   "
+Output: "Alice Loves Bob"
+
+Constraints:
+1 <= s.length <= 104
+s contains English letters (upper-case and lower-case), digits, and spaces ' '.
+There is at least one word in s.
+ 
+Follow up:
+Could you solve it in-place with O(1) extra space?
+*/
+
+public class Solution {
+    public string ReverseWords(string s) {
+        ///string text = String.Join(" ", s.Split(' ').Trim().Reverse().ToArray());
+        string text = String.Join(" ", s.Split(' ').Where(x=>!string.IsNullOrEmpty(x)).Reverse().ToArray());
+
+        return text;
+        
+        //Iterative Approach
+        /*string[] sarray=s.Trim().Split(' ');
+        
+        StringBuilder sb=new StringBuilder();
+        for(int i=sarray.Length-1;i>=0;i--){
+            if(sarray[i].Trim()!=""){
+            sb.Append(sarray[i].ToString());
+            if(i>0)
+                sb.Append(' ');
+            }
+        }
+        return sb.ToString();*/
+    }
+}
