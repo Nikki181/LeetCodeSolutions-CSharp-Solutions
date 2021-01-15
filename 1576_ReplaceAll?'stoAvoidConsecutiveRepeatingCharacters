@@ -1,0 +1,40 @@
+
+Given a string s containing only lower case English letters and the '?' character, convert all the '?' characters into lower case letters such that the final string does not contain any consecutive repeating characters. You cannot modify the non '?' characters.
+It is guaranteed that there are no consecutive repeating characters in the given string except for '?'.
+Return the final string after all the conversions (possibly zero) have been made. If there is more than one solution, return any of them. It can be shown that an answer is always possible with the given constraints.
+
+Input: s = "?zs"
+Output: "azs"
+
+Input: s = "ubv?w"
+Output: "ubvaw"
+
+Input: s = "j?qg??b"
+Output: "jaqgacb"
+Example 4:
+
+Input: s = "??yw?ipkj?"
+Output: "acywaipkja"
+ 
+Constraints:
+
+1 <= s.length <= 100
+s contains only lower case English letters and '?'.
+
+public class Solution {
+    public string ModifyString(string s) {
+        var result=s.ToCharArray();
+        for(int i=0;i<s.Length;i++){
+            if(result[i]=='?')
+            {
+                var left=i>0 ? result[i-1] : (char?)null;
+                var right=i!=s.Length-1 ? result[i+1] : (char?)null;
+                
+                if(left!='a' &&  right!='a') result[i]='a';
+                else if(left!='b' &&  right!='b') result[i]='b';
+                else if(left!='c' &&  right!='c') result[i]='c';
+            }
+        }
+        return new String(result);
+    }
+}
