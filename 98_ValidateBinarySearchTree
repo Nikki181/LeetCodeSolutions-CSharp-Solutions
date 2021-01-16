@@ -1,0 +1,44 @@
+/*Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public bool IsValidBST(TreeNode root) {
+        if(root==null)
+            return true;
+        else if(root.left==null && root.right==null)
+            return true;
+        else{
+            bool isvalid=isvalidbinarytree(root);
+            return isvalid;
+        }
+        return false;
+    }
+    
+    public bool isvalidbinarytree(TreeNode root){
+       Queue<(TreeNode,double,double)> queue=new Queue<(TreeNode,double,double)>();
+       queue.Enqueue((root,double.NegativeInfinity,double.PositiveInfinity));
+        while(queue.Count>0){
+            (TreeNode node, double min, double max) curr=queue.Dequeue();
+            if (!(curr.node.val < curr.max && curr.node.val > curr.min))
+                return false; 
+			if (curr.node.left != null) 
+                queue.Enqueue((curr.node.left, curr.min, curr.node.val)); 
+			if (curr.node.right != null) 
+                queue.Enqueue((curr.node.right, curr.node.val, curr.max)); 
+        }
+        return true;
+    }
+}
