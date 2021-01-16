@@ -1,0 +1,45 @@
+/*
+
+Given a binary string s (a string consisting only of '0's and '1's), we can split s into 3 non-empty strings s1, s2, s3 (s1+ s2+ s3 = s).
+Return the number of ways s can be split such that the number of characters '1' is the same in s1, s2, and s3.
+Since the answer may be too large, return it modulo 10^9 + 7.
+
+Input: s = "10101"
+Output: 4
+Explanation: There are four ways to split s in 3 parts where each part contain the same number of letters '1'.
+"1|010|1"
+"1|01|01"
+"10|10|1"
+"10|1|01"
+
+*/
+
+public class Solution {
+    public int NumWays(string s) {
+        long ones=0;
+        long n=s.Length;
+        long MOD=1_000_000_007;
+        foreach(var c in s.ToCharArray())
+            ones+=c-'0';
+        if(ones==0)
+            return (int)((((n-1) * (n-2)) /2 ) % MOD);
+        
+        if(ones%3!=0)
+            return 0;
+        
+        long oneThird = ones/3;
+        ones=0;
+        long part1=0;
+        long part2=0;
+        foreach(char c in s.ToCharArray()){
+            ones +=c - '0';
+            if(ones == oneThird)
+                part1++;
+            if(ones == 2* oneThird)
+                part2++;
+        }
+        return (int)((part1 * part2) % MOD);
+    }
+}
+
+//https://www.youtube.com/watch?v=TSX__xdfOM8
