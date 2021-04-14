@@ -1,0 +1,78 @@
+/*
+There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.
+Return the total number of provinces.
+
+Example 1:
+Input: isConnected = [[1,1,0],[1,1,0],[0,0,1]]
+Output: 2
+
+Example 2:
+Input: isConnected = [[1,0,0],[0,1,0],[0,0,1]]
+Output: 3
+ 
+Constraints:
+1 <= n <= 200
+n == isConnected.length
+n == isConnected[i].length
+isConnected[i][j] is 1 or 0.
+isConnected[i][i] == 1
+isConnected[i][j] == isConnected[j][i]
+
+*/
+public class Solution {
+    
+    public int FindCircleNum(int[][] isConnected) {
+                
+        int rows=isConnected.Length;
+        int cols=isConnected[0].Length;
+        int connectedcount=0;
+        
+        
+        bool[] visited=new bool[rows];
+        for(int i=0;i<cols;i++)
+        {
+            visited[i]=false;
+        }
+        
+         for(int i=0;i<rows;i++){
+             if(visited[i]==false){
+                visited=isconnected(isConnected,visited,cols,rows,i);
+                connectedcount++;
+             }           
+        }
+        return connectedcount;
+    }
+    public  bool[] isconnected(int[][] isConnected,bool[] visited,int cols,int rows,int i)
+    {
+        Queue<int> queue=new Queue<int>();        
+        queue.Enqueue(i);
+        visited[i]=true;
+        while(queue.Count()!=0){
+            var len=queue.Count();
+            for(int k=0;k<len;k++){
+                var m=queue.Dequeue();                
+                for(int n=0;n<cols;n++){
+                    if(m!=n && isConnected[m][n]==1 && visited[n]!=true)
+                    {
+                        queue.Enqueue(n);
+                        visited[n]=true;
+                    }
+                }                
+            }
+        }
+        return visited;
+        
+          
+    }
+}
+
+
+/*
+Taking first example-
+first  initialize visited array with false value.
+After that, in the main loop of isConnected- ek loop chalau 6u bdhi rows ma and check krse jo e node already visited hoy to i++ , other wise, call isconnected(custom) function.
+in that function, I am taking one element and checking in the int[][] isConnected array for that index.
+so if isConnected[row][col] ==1 and if it is not visited. then again I wil put 2(from the example) in the queue and again will start checking for that node repeatedly.
+*/
