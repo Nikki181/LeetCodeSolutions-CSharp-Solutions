@@ -1,0 +1,63 @@
+/*There are 8 prison cells in a row and each cell is either occupied or vacant.
+
+Each day, whether the cell is occupied or vacant changes according to the following rules:
+
+If a cell has two adjacent neighbors that are both occupied or both vacant, then the cell becomes occupied.
+Otherwise, it becomes vacant.
+Note that because the prison is a row, the first and the last cells in the row can't have two adjacent neighbors.
+
+You are given an integer array cells where cells[i] == 1 if the ith cell is occupied and cells[i] == 0 if the ith cell is vacant, and you are given an integer n.
+
+Return the state of the prison after n days (i.e., n such changes described above).
+
+*/
+
+public class Solution {
+    public int[] PrisonAfterNDays(int[] cells, int n) {
+        int[] newresult=new int[cells.Length];
+        newresult=Rotate(cells); //First time calculate from original cell that's why instead of newresult pass cells value again
+        
+        int[] originalcopy=new int[cells.Length];
+        originalcopy=newresult; // Save first time result to compare in the future
+        
+        int miniteration=-1;
+        for(int i=1;i<n;i++){        
+            newresult=Rotate(newresult);
+            if(newresult.SequenceEqual(originalcopy))
+            {
+                miniteration=i;
+                //return new int[] {miniteration,0,0,0,0,0,0,0};
+                break;
+            }
+        }
+        if(miniteration ==-1)
+            return newresult;
+        Array.Copy(originalcopy,newresult,newresult.Length);
+        for(int i=0;i<(n-1)%miniteration;i++){
+            newresult=Rotate(newresult);
+        }
+        return newresult;          
+    }
+    
+    public int[] Rotate(int[] newresult){
+        int[] updatecells=new int[newresult.Length];
+         for(int j=0;j<newresult.Length;j++)
+         {
+            if(j==0 || j==newresult.Length-1){
+                    updatecells[j]=0;
+            }
+            else{
+                if(newresult[j-1]==newresult[j+1])
+                {
+                    updatecells[j]=1;
+                }
+                else{
+                    updatecells[j]=0;
+                }
+             }   
+         }
+        return updatecells;
+    }
+}
+
+/* Don't want to use %14 directly in the code
