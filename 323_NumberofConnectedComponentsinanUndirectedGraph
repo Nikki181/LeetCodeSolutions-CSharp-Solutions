@@ -1,0 +1,66 @@
+/*
+You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
+Return the number of connected components in the graph.
+
+Example 1:
+Input: n = 5, edges = [[0,1],[1,2],[3,4]]
+Output: 2
+
+Example 2:
+Input: n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]
+Output: 1
+ 
+
+Constraints:
+
+1 <= n <= 2000
+1 <= edges.length <= 5000
+edges[i].length == 2
+0 <= ai <= bi < n
+ai != bi
+There are no repeated edges.
+
+*/
+
+public class Solution {
+    public int CountComponents(int n, int[][] edges) {
+          
+        List<int>[] graph = new List<int>[n];
+        for(int i = 0; i < n; i++)
+            graph[i] = new List<int>();
+        
+        foreach(int[] edge in edges)
+        {
+            graph[edge[0]].Add(edge[1]);
+            graph[edge[1]].Add(edge[0]);
+        }
+        
+        // BFS traverse 
+        int cnt = 0;
+        bool[] visited = new bool[n];
+        Queue<int> queue = new Queue<int>();
+        for(int i = 0; i < n; i++)
+        {
+            if(!visited[i])
+            {             
+                queue.Enqueue(i);
+                visited[i] = true;
+                while(queue.Count > 0)
+                {
+                    int curr = queue.Dequeue();
+                    foreach(int j in graph[curr])
+                    {
+                        if(!visited[j])
+                        {
+                            queue.Enqueue(j);
+                            visited[j] = true;
+                        }
+                    }
+                }
+                cnt++;
+            }   
+        }
+        
+        return cnt;
+    }
+}
