@@ -1,0 +1,44 @@
+/* Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+Example 2:
+
+Input: n = 1
+Output: ["()"]
+ 
+Constraints:
+1 <= n <= 8
+
+*/
+
+public class Solution {
+    public IList<string> GenerateParenthesis(int n) {
+        List<string> result=new List<string>();
+        
+        var queue=new Queue<(string,int,int)>();
+        //Initially store "", (remaining open brackets - n),
+        queue.Enqueue(("",n,0)); 
+        while(queue.Count>0)
+        {
+            (string str,int remaining,int open) curr=queue.Dequeue();
+            //remaining will take care of open bracket which should be equal to n- According to that it will add ')'.
+            //open will take care of how many currently open brackets in the string-and according to that, it will add ')' brackets
+            if(curr.remaining>0)
+            {
+                queue.Enqueue((curr.str+"(",curr.remaining-1,curr.open+1));
+            }
+            if(curr.open>0)
+            {
+                queue.Enqueue((curr.str+")",curr.remaining,curr.open-1));
+            }
+            if(curr.open==0 && curr.remaining==0)
+            {
+                result.Add(curr.str);
+            }
+        }
+        return result;
+    }
+}
